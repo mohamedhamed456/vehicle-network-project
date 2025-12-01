@@ -1,0 +1,46 @@
+===================SWITCH(CAR 2)=========
+conf t
+
+vlan 10
+ name CONTROL
+vlan 20
+ name SENSORS
+vlan 30
+ name INFOTAINMENT
+vlan 40
+ name DIAGNOSTICS
+
+! Trunk to Router ( Gi0/0)
+interface GigabitEthernet0/0
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,30,40
+ no shutdown
+
+! Access ports 
+interface GigabitEthernet0/1
+ switchport mode access
+ switchport access vlan 10
+ spanning-tree portfast
+ no shutdown
+
+interface GigabitEthernet0/2
+ switchport mode access
+ switchport access vlan 20
+ spanning-tree portfast
+ no shutdown
+
+interface GigabitEthernet0/3
+ switchport mode access
+ switchport access vlan 30
+ spanning-tree portfast
+ no shutdown
+
+interface GigabitEthernet1/0
+ switchport mode access
+ switchport access vlan 40
+ spanning-tree portfast
+ no shutdown
+
+end
+wr
